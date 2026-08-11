@@ -1,22 +1,24 @@
 {
-  "name": "Bubli's Birthday Diary",
-  "short_name": "Bubli's Diary",
-  "description": "A little handmade birthday diary for Bubli 💙",
+  "name": "Mandrita's 18th Birthday",
+  "short_name": "Mandrita 18",
+  "description": "A romantic 25-page birthday diary & interactive experience for Mandrita Kujur 💙",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#dcecf5",
-  "theme_color": "#8fc6e8",
+  "background_color": "#0F172A",
+  "theme_color": "#38BDF8",
   "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

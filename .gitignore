@@ -4,3 +4,9 @@ Thumbs.db
 .vscode/
 .idea/
 *.txt
+
+# Node / Android / Build
+node_modules/
+dist/
+android/
+*.apk

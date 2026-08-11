@@ -1,0 +1,9 @@
+{
+  "appId": "com.kaushik.bublidiary",
+  "appName": "Mandrita 18th Birthday",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

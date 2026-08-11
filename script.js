@@ -43,11 +43,19 @@ function updateChrome() {
   initGameForPage(current);
 }
 
+// Mobile Haptics Helper
+function triggerHaptic(ms = 30) {
+  if ('vibrate' in navigator) {
+    try { navigator.vibrate(ms); } catch (e) {}
+  }
+}
+
 let isFlipping = false;
 
 function goTo(index, dir) {
   if (isFlipping || index < 0 || index >= total || index === current) return;
   isFlipping = true;
+  triggerHaptic(20);
 
   const outPage = pages[current];
   const inPage = pages[index];
@@ -170,6 +178,7 @@ for (let i = 0; i < 14; i++) {
 
 // ================= CONFETTI ENGINE =================
 function confettiBurst(count = 40) {
+  triggerHaptic(50);
   const colors = ['#38bdf8', '#f472b6', '#f59e0b', '#c084fc', '#4ade80'];
   for (let i = 0; i < count; i++) {
     const p = document.createElement('div');

@@ -2,247 +2,519 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-<title>Bubli's Birthday Diary 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Bubli's 18th Birthday Diary 💙</title>
 <meta name="theme-color" content="#8fc6e8" />
 <link rel="manifest" href="manifest.json" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Kalam:wght@400;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- ambient floating doodles -->
+<!-- Ambient floating doodles -->
 <div class="ambient" id="ambient"></div>
+
+<!-- Floating Navigation Dots Sidebar (For Desktop & Tablet) -->
+<nav class="dot-nav" id="dotNav" aria-label="Page Navigation"></nav>
+
+<!-- Audio Music Controls -->
+<button class="music-toggle-btn" id="musicToggle" aria-label="Toggle Background Music">
+  <span class="music-icon">🎵</span>
+  <span class="music-text">Music: OFF</span>
+</button>
 
 <div class="book" id="book">
 
-  <!-- progress -->
+  <!-- Top Progress Bar & Header Chrome -->
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="page-counter" id="pageCounter">1 / 13</div>
+  <div class="header-chrome">
+    <span class="page-counter" id="pageCounter">1 / 25</span>
+  </div>
 
-  <!-- ============ PAGE 0 : COVER ============ -->
+  <!-- ============ PAGE 0 (1/25) : COVER ============ -->
   <section class="page cover-page active" data-page="0">
     <div class="spiral"></div>
     <div class="tape tape-1"></div>
     <div class="cover-content">
       <svg class="doodle cat-doodle float-slow" viewBox="0 0 120 120" width="90"><use href="#doodle-cat"/></svg>
-      <h1 class="cover-title">Bubli's<br/>Birthday Diary</h1>
-      <p class="cover-sub">a little book made just for you 💙</p>
+      <div class="badge-18">OFFICIALLY 18! 🎂</div>
+      <h1 class="cover-title">Bubli's<br/>18th Birthday Diary</h1>
+      <p class="cover-sub">a romantic interactive journey made just for you, Mana 💙</p>
       <svg class="doodle dog-doodle float-slow2" viewBox="0 0 120 120" width="80"><use href="#doodle-dog"/></svg>
-      <button class="btn-primary open-btn" id="openBtn">Open me ✨</button>
-      <p class="cover-hint">(tap the corner to flip pages)</p>
+      <button class="btn-primary open-btn" id="openBtn">Open My Heart ✨</button>
+      <p class="cover-hint">(swipe or tap corners to flip pages)</p>
     </div>
   </section>
 
-  <!-- ============ PAGE 1 : HERO ============ -->
+  <!-- ============ PAGE 1 (2/25) : GAME 1 - CANDLE BLOWER ============ -->
   <section class="page" data-page="1">
     <div class="spiral"></div>
-    <div class="tape tape-2"></div>
     <div class="page-inner center-content">
-      <p class="handwritten-line fade-in-1">For the girl who became my favorite person,</p>
-      <h1 class="big-title fade-in-2">Happy 18th<br/>Birthday <span class="heart-name">Bubli</span> 🎂</h1>
-      <p class="handwritten-line fade-in-3">flip through this little diary I made for you... 💙</p>
-      <svg class="doodle balloon-doodle float-slow" viewBox="0 0 100 140" width="70" style="left:8%;top:60%"><use href="#doodle-balloon"/></svg>
-      <svg class="doodle heart-doodle float-slow2" viewBox="0 0 100 100" width="50" style="right:10%;top:22%"><use href="#doodle-heart"/></svg>
+      <h2 class="page-title">🎂 Make a Wish, Bubli!</h2>
+      <p class="page-sub">Tap the candles or press Blow to extinguish all 18 flames!</p>
+      
+      <div class="game-container">
+        <canvas id="candleCanvas" width="340" height="260"></canvas>
+      </div>
+
+      <div class="game-controls">
+        <button class="btn-secondary" id="blowBtn">🌬️ Blow Wind!</button>
+        <button class="btn-primary hidden" id="candleNextBtn">Continue Journey →</button>
+      </div>
+      <p class="game-status" id="candleStatus">18 Candles glowing bright ✨</p>
     </div>
   </section>
 
-  <!-- ============ PAGE 2 : GAME - BLOW CANDLES ============ -->
+  <!-- ============ PAGE 2 (3/25) : THE RADHIKA MYSTERY ============ -->
   <section class="page" data-page="2">
     <div class="spiral"></div>
+    <div class="tape tape-2"></div>
     <div class="page-inner">
-      <h2 class="page-title">🎂 Make a wish, Bubli!</h2>
-      <p class="page-sub">tap each candle to blow it out</p>
-      <div class="cake-wrap">
-        <svg viewBox="0 0 300 220" class="cake-svg">
-          <ellipse cx="150" cy="205" rx="120" ry="14" fill="#f2c9a0"/>
-          <rect x="45" y="140" width="210" height="65" rx="18" fill="#f7d9b8"/>
-          <rect x="45" y="140" width="210" height="18" rx="9" fill="#fff3e2"/>
-          <rect x="60" y="95" width="180" height="55" rx="16" fill="#f4a7c0"/>
-          <rect x="60" y="95" width="180" height="16" rx="8" fill="#ffe0ec"/>
-          <g id="candlesGroup"></g>
-        </svg>
+      <h2 class="page-title">The "Radhika" Mystery 🤫</h2>
+      <p class="page-sub">June 1st — where our story secretly began...</p>
+      
+      <div class="chat-card">
+        <div class="chat-bubble received">
+          <span class="chat-sender">Unknown Number</span>
+          <p>"Hii, I'm Radhika... Don't call me, text only!" 🤐</p>
+        </div>
+        <div class="chat-bubble sent">
+          <span class="chat-sender">Kaushik</span>
+          <p>Wait... Radhika? Who is this? 😂</p>
+        </div>
+        <div class="chat-bubble received">
+          <span class="chat-sender">Mandrita 💙</span>
+          <p>Hehe okay fine it's Mandrita! 🙈</p>
+        </div>
       </div>
-      <div id="candleMsg" class="candle-msg hidden">🎉 Yayy! Your wish is on its way, Bubli!</div>
-      <button class="btn-primary next-btn hidden" id="candleNext">Continue →</button>
+      <div class="polaroid-note">
+        <p>I still laugh thinking about that first text. From "don't call me" to calling each other every single day. 💙</p>
+      </div>
     </div>
   </section>
 
-  <!-- ============ PAGE 3 : I REMEMBERED ============ -->
+  <!-- ============ PAGE 3 (4/25) : PW LAKSHYA & JEE STRUGGLE ============ -->
   <section class="page" data-page="3">
     <div class="spiral"></div>
-    <div class="tape tape-1"></div>
     <div class="page-inner">
-      <h2 class="page-title">I remembered everything 📝</h2>
-      <div class="fact-grid">
-        <div class="fact-card"><span class="fact-emoji">💙</span>Your favourite colour is sky blue — not just "blue", you always correct me on that</div>
-        <div class="fact-card"><span class="fact-emoji">🐾</span>You love cats and dogs more than most humans, honestly</div>
-        <div class="fact-card"><span class="fact-emoji">🥟</span>Momo and pizza — your ride-or-die food combo</div>
-        <div class="fact-card"><span class="fact-emoji">🍫</span>A little chocolate fixes most bad days for you</div>
-        <div class="fact-card"><span class="fact-emoji">🎨</span>You draw the cutest cartoon doodles — you even won a competition</div>
-        <div class="fact-card"><span class="fact-emoji">✨</span>No sad songs allowed — you only manifest good energy</div>
+      <h2 class="page-title">PW Lakshya & JEE Backlogs 📚</h2>
+      <p class="page-sub">Saleem Sir, Sachin Sir & late night panic chats!</p>
+
+      <div class="sticker-grid">
+        <div class="sticker-card">
+          <div class="sticker-icon">⚡</div>
+          <h4>Saleem Sir's Physics</h4>
+          <p>"Kaushik help, what is rotational motion even doing?!" 😭</p>
+        </div>
+        <div class="sticker-card">
+          <div class="sticker-icon">📐</div>
+          <h4>Sachin Sir's Math</h4>
+          <p>Endless integration backlogs and 2:00 AM study stress</p>
+        </div>
+        <div class="sticker-card">
+          <div class="sticker-icon">☕</div>
+          <h4>Late Night Calls</h4>
+          <p>Studying together while complaining about test series scores</p>
+        </div>
       </div>
+      <p class="handwritten-line center-text">You survived every backlog, Bubli! You're stronger than any JEE question 💪</p>
     </div>
   </section>
 
-  <!-- ============ PAGE 4 : CAT & DOG CORNER ============ -->
+  <!-- ============ PAGE 4 (5/25) : GAME 2 - BASKETBALL HOOP ============ -->
   <section class="page" data-page="4">
     <div class="spiral"></div>
     <div class="page-inner center-content">
-      <h2 class="page-title">Your favourite corner 🐱🐶</h2>
-      <p class="page-sub">tap them, they missed you</p>
-      <div class="pet-row">
-        <div class="pet-wrap" id="petCat">
-          <svg class="doodle pet-svg" viewBox="0 0 120 120" width="110"><use href="#doodle-cat"/></svg>
-          <div class="pet-heart">💗</div>
-        </div>
-        <div class="pet-wrap" id="petDog">
-          <svg class="doodle pet-svg" viewBox="0 0 120 120" width="110"><use href="#doodle-dog"/></svg>
-          <div class="pet-heart">💗</div>
-        </div>
+      <h2 class="page-title">🏀 Basket Time, Mandrita!</h2>
+      <p class="page-sub">Drag the basketball back and release to shoot into the hoop!</p>
+
+      <div class="game-container">
+        <canvas id="basketballCanvas" width="340" height="280"></canvas>
       </div>
 
-      <!-- Rotated Photo Strip -->
-      <div class="photo-strip">
-        <div class="photo-card photo-card-1">
-          <div class="photo-tape tape-top-left"></div>
-          <img src="assets/photos/photo1.jpg" alt="Bubli Photo 1" class="diary-photo" />
-        </div>
-        <div class="photo-card photo-card-2">
-          <div class="photo-tape tape-top-right"></div>
-          <img src="assets/photos/photo2.jpg" alt="Bubli Photo 2" class="diary-photo" />
-        </div>
+      <div class="game-controls">
+        <span class="score-badge" id="hoopScore">Baskets: 0 / 3</span>
+        <button class="btn-primary hidden" id="hoopNextBtn">Next Section →</button>
       </div>
-
-      <p class="handwritten-line small-note">a whole page just for the two things you never get tired of</p>
     </div>
   </section>
 
-  <!-- ============ PAGE 5 : GAME - BASKETBALL ============ -->
+  <!-- ============ PAGE 5 (6/25) : CAT & DOG PLAYGROUND ============ -->
   <section class="page" data-page="5">
     <div class="spiral"></div>
     <div class="page-inner">
-      <h2 class="page-title">🏀 Birthday Hoops</h2>
-      <p class="page-sub" id="hoopSub">tap anywhere to shoot · <span id="hoopScore">0</span>/3</p>
-      <div class="hoop-court" id="hoopCourt">
-        <svg class="hoop-svg" viewBox="0 0 220 140">
-          <rect x="0" y="0" width="220" height="14" rx="4" fill="#e8a855"/>
-          <rect x="0" y="14" width="10" height="40" fill="#e8a855"/>
-          <ellipse cx="60" cy="55" rx="42" ry="10" fill="none" stroke="#e8536b" stroke-width="6"/>
-          <path d="M22 58 L26 95 M40 58 L42 95 M60 58 L60 95 M80 58 L78 95 M98 58 L94 95" stroke="#f4a7c0" stroke-width="2" fill="none"/>
-        </svg>
-        <div class="ball" id="ball">🏀</div>
+      <h2 class="page-title">Cat & Dog Playground 🐾</h2>
+      <p class="page-sub">Dedicated to Seenu & her ultimate love for pets!</p>
+
+      <div class="pet-gallery">
+        <div class="pet-card cat-card">
+          <div class="pet-avatar">🐱</div>
+          <h3>The Cat Whisperer</h3>
+          <p>Sending 50 cat reels a day and getting emotional over kittens</p>
+          <button class="sound-btn" id="purrBtn">🔊 Meow Sound</button>
+        </div>
+        <div class="pet-card dog-card">
+          <div class="pet-avatar">🐶</div>
+          <h3>Dog Lover & Seenu</h3>
+          <p>Giving treats to every stray dog and talking to them like humans!</p>
+          <button class="sound-btn" id="barkBtn">🔊 Bark Sound</button>
+        </div>
       </div>
-      <button class="btn-primary next-btn hidden" id="hoopNext">Continue →</button>
     </div>
   </section>
 
-  <!-- ============ PAGE 6 : MOVIE SHELF ============ -->
+  <!-- ============ PAGE 6 (7/25) : THE MOVIE SHELF ============ -->
   <section class="page" data-page="6">
     <div class="spiral"></div>
-    <div class="tape tape-2"></div>
     <div class="page-inner">
-      <h2 class="page-title">Our movie shelf 🎬</h2>
-      <p class="page-sub">romantic + thriller, obviously</p>
-      <div class="movie-shelf">
-        <div class="movie-card" style="--c:#f4a7c0"><div class="movie-icon">🎬</div>SitaRamam</div>
-        <div class="movie-card" style="--c:#8fc6e8"><div class="movie-icon">🦸</div>Avengers: Endgame</div>
-        <div class="movie-card" style="--c:#e8a855"><div class="movie-icon">💔</div>My Fault</div>
-        <div class="movie-card" style="--c:#c6a4e8"><div class="movie-icon">💛</div>Your Fault</div>
-        <div class="movie-card" style="--c:#a4e8c6"><div class="movie-icon">💚</div>Our Fault</div>
+      <h2 class="page-title">Our Movie Shelf 🎬</h2>
+      <p class="page-sub">Tap each card to reveal our movie memories!</p>
+
+      <div class="movie-grid">
+        <div class="movie-flip-card" data-movie="sita">
+          <div class="movie-front">❤️ Sita Ramam</div>
+          <div class="movie-back">"Pure romance & tears. Our absolute favorite letter story!"</div>
+        </div>
+        <div class="movie-flip-card" data-movie="endgame">
+          <div class="movie-front">🦸 Avengers: Endgame</div>
+          <div class="movie-back">"I love you 3000, Bubli!"</div>
+        </div>
+        <div class="movie-flip-card" data-movie="myfault">
+          <div class="movie-front">🔥 My Fault</div>
+          <div class="movie-back">"Late night watch parties and endless drama!"</div>
+        </div>
+        <div class="movie-flip-card" data-movie="yourfault">
+          <div class="movie-front">💥 Your Fault</div>
+          <div class="movie-back">"Teasing each other over who gets more angry 🤭"</div>
+        </div>
+        <div class="movie-flip-card" data-movie="ourfault">
+          <div class="movie-front">💙 Our Fault</div>
+          <div class="movie-back">"No matter whose fault it is... I'll always hug you first."</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ PAGE 7 : GAME - BALLOON POP ============ -->
+  <!-- ============ PAGE 7 (8/25) : THE FOOTBALL ARENA ============ -->
   <section class="page" data-page="7">
     <div class="spiral"></div>
     <div class="page-inner">
-      <h2 class="page-title">🎈 Pop them all, Bubli!</h2>
-      <div class="balloon-field" id="balloonField"></div>
-      <div class="pop-reveal" id="popReveal"></div>
-      <button class="btn-primary next-btn hidden" id="balloonNext">Continue →</button>
+      <h2 class="page-title">Football Arena ⚽</h2>
+      <p class="page-sub">CR7, Spain & 5:00 AM match night screamers!</p>
+
+      <div class="stadium-card">
+        <div class="cr7-badge">CR7 🐐 #7</div>
+        <h3>The Ultimate Football Fan</h3>
+        <p>Staying up until 5:00 AM just to watch Spain & Ronaldo play, screaming at every goal, and analyzing tactics like a professional coach!</p>
+        <div class="match-score">
+          <span>SPAIN 🇪🇸</span>
+          <span class="score">3 - 1</span>
+          <span>VICTORY 🏆</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ============ PAGE 8 : ADULTHOOD ============ -->
+  <!-- ============ PAGE 8 (9/25) : GAME 3 - BALLOON POP ============ -->
   <section class="page" data-page="8">
     <div class="spiral"></div>
-    <div class="page-inner">
-      <h2 class="page-title">Welcome to adulthood 🎓🌚</h2>
-      <p class="page-sub">officially 18 — here's your new unlocked list</p>
-      <div class="unlock-grid">
-        <div class="unlock-card">🗳️ Vote in elections</div>
-        <div class="unlock-card">💍 Legally marry <span class="wink">🌚</span></div>
-        <div class="unlock-card">🚗 Get a driving license</div>
-        <div class="unlock-card">📝 Sign your own contracts</div>
-        <div class="unlock-card">🏦 Open a bank account solo</div>
-        <div class="unlock-card">✈️ Get your own passport</div>
-        <div class="unlock-card">🏠 Rent a place on your name</div>
-        <div class="unlock-card">💼 Sign employment contracts</div>
-        <div class="unlock-card">⚖️ Tried as an adult (never needed, hopefully 😅)</div>
+    <div class="page-inner center-content">
+      <h2 class="page-title">🎈 Pop the Birthday Balloons!</h2>
+      <p class="page-sub">Tap floating balloons to reveal special words!</p>
+
+      <div class="game-container balloon-field-container">
+        <canvas id="balloonCanvas" width="340" height="280"></canvas>
       </div>
+
+      <div class="pop-words-found" id="balloonWordsFound">Words found: 0 / 6</div>
+      <button class="btn-primary hidden" id="balloonNextBtn">Continue →</button>
     </div>
   </section>
 
-  <!-- ============ PAGE 9 : US ============ -->
+  <!-- ============ PAGE 9 (10/25) : SKINCARE & SATTU SHAKE ============ -->
   <section class="page" data-page="9">
     <div class="spiral"></div>
-    <div class="page-inner center-content pink-page">
-      <h2 class="page-title">Us 💙</h2>
-      <div class="timeline">
-        <div class="timeline-item">the day I first noticed your handwriting</div>
-        <div class="timeline-item">the day you told me you love cats and dogs, and I quietly took notes</div>
-        <div class="timeline-item">the day talking to you stopped feeling ordinary</div>
-        <div class="timeline-item">the day everything changed</div>
+    <div class="page-inner">
+      <h2 class="page-title">Skincare & Sattu Shake 🥛</h2>
+      <p class="page-sub">The daily routine essentials of our life!</p>
+
+      <div class="routine-grid">
+        <div class="routine-card">
+          <div class="routine-icon">✨</div>
+          <h3>Bubli's Skincare Routine</h3>
+          <p>Sunscreen, moisturizer, lip balm, and glowing skin perfection!</p>
+        </div>
+        <div class="routine-card">
+          <div class="routine-icon">🥤</div>
+          <h3>Kaushik's Sattu Protein Shake</h3>
+          <p>Daily Sattu + Water + Protein = "Kaushik drink your shake on time!"</p>
+        </div>
       </div>
-      <p class="handwritten-line small-note">still my favourite person, every single day</p>
     </div>
   </section>
 
-  <!-- ============ PAGE 10 : NOSTALGIA ============ -->
+  <!-- ============ PAGE 10 (11/25) : VEINS & BICEPS CORNER ============ -->
   <section class="page" data-page="10">
     <div class="spiral"></div>
-    <div class="page-inner center-content dusk-page">
-      <h2 class="page-title">before you go... 🎈</h2>
-      <p class="nostalgia-line">somewhere between board exams and late night texts, your childhood quietly packed its bags</p>
-      <p class="nostalgia-line">no more permission for a 10pm bedtime</p>
-      <p class="nostalgia-line">school uniform days are numbered</p>
-      <p class="nostalgia-line">you're not "a kid" on paper anymore, Bubli</p>
-      <p class="nostalgia-final">but no matter how grown up you get — to me, you'll always be my favourite person to love 💙</p>
+    <div class="page-inner center-content">
+      <h2 class="page-title">Veins & Biceps Corner 💪</h2>
+      <p class="page-sub">Her favorite gym flex appreciation page!</p>
+
+      <div class="flex-card">
+        <div class="bicep-emoji">💪🔥</div>
+        <p class="flex-text">"Show me your hand veins!"</p>
+        <p class="flex-sub">Mandrita's official weakness: Gym flex photos & hand veins 🤭</p>
+      </div>
     </div>
   </section>
 
-  <!-- ============ PAGE 11 : MESSAGE ============ -->
+  <!-- ============ PAGE 11 (12/25) : GAME 4 - PING PONG ============ -->
   <section class="page" data-page="11">
+    <div class="spiral"></div>
+    <div class="page-inner center-content">
+      <h2 class="page-title">🎾 Ping Pong Bounce!</h2>
+      <p class="page-sub">Drag the paddle to bounce the ball and break target blocks!</p>
+
+      <div class="game-container">
+        <canvas id="pingpongCanvas" width="340" height="280"></canvas>
+      </div>
+
+      <div class="game-controls">
+        <span class="score-badge" id="pingpongScore">Blocks Left: 6</span>
+        <button class="btn-primary hidden" id="pingpongNextBtn">Next Section →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 12 (13/25) : THE UNPAID THERAPIST ============ -->
+  <section class="page" data-page="12">
     <div class="spiral"></div>
     <div class="tape tape-1"></div>
     <div class="page-inner center-content">
-      <h2 class="page-title">a letter for you</h2>
+      <h2 class="page-title">The Unpaid Therapist 🫂</h2>
+      <div class="quote-box">
+        <p class="quote-text">"Thank you for listening to my 3:00 AM overthinking sessions, my random rants, and staying by my side when everything felt confusing."</p>
+        <p class="quote-author">— Kaushik</p>
+      </div>
+      <p class="handwritten-line">You have the sweetest, calmest heart in the world, Mandrita. 💙</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 13 (14/25) : WELCOME TO ADULTHOOD ============ -->
+  <section class="page" data-page="13">
+    <div class="spiral"></div>
+    <div class="page-inner">
+      <h2 class="page-title">Welcome to Adulthood 🎓</h2>
+      <p class="page-sub">Officially 18 — Here is your new legal rights checklist!</p>
+
+      <div class="unlock-grid">
+        <div class="unlock-card"><span class="chk">✓</span> 🗳️ Vote in elections</div>
+        <div class="unlock-card"><span class="chk">✓</span> 🚗 Get a driving license</div>
+        <div class="unlock-card"><span class="chk">✓</span> 📝 Sign your own legal contracts</div>
+        <div class="unlock-card"><span class="chk">✓</span> 🏦 Open a bank account independently</div>
+        <div class="unlock-card"><span class="chk">✓</span> ✈️ Travel without guardian consent</div>
+        <div class="unlock-card"><span class="chk">✓</span> 💼 Sign full-time employment contracts</div>
+        <div class="unlock-card"><span class="chk">✓</span> 🏠 Rent an apartment on your own name</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 14 (15/25) : THE 🌚 WINKY PAGE ============ -->
+  <section class="page" data-page="14">
+    <div class="spiral"></div>
+    <div class="page-inner center-content">
+      <h2 class="page-title">Legal Marriage Age 💍🌚</h2>
+      <div class="winky-box">
+        <div class="big-emoji float-slow">🌚</div>
+        <h3>Look who is legally allowed to get married now!</h3>
+        <p class="winky-sub">Just putting this legal fact right here... no pressure though! 🤭❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 15 (16/25) : GAME 5 - DART TARGET ============ -->
+  <section class="page" data-page="15">
+    <div class="spiral"></div>
+    <div class="page-inner center-content">
+      <h2 class="page-title">🎯 Bullseye for the Birthday Girl!</h2>
+      <p class="page-sub">Pull back the dart and release to hit the target!</p>
+
+      <div class="game-container">
+        <canvas id="dartCanvas" width="340" height="280"></canvas>
+      </div>
+
+      <div class="game-controls">
+        <span class="score-badge" id="dartScore">Hits: 0 / 3</span>
+        <button class="btn-primary hidden" id="dartNextBtn">Continue →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 16 (17/25) : BEFORE YOU GO... ============ -->
+  <section class="page" data-page="16">
+    <div class="spiral"></div>
+    <div class="page-inner center-content dusk-page">
+      <h2 class="page-title">Before You Go... 🎈🥹</h2>
+      <p class="nostalgia-line">"Somewhere between board exams and late night texts, your childhood quietly packed its bags..."</p>
+      <p class="nostalgia-line">No more permission slips for a 10pm bedtime.</p>
+      <p class="nostalgia-line">School uniform days are now memories.</p>
+      <p class="nostalgia-line">You're not a kid on paper anymore, Bubli...</p>
+      <div class="paper-plane-doodle">✈️</div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 17 (18/25) : THE SHIFT ("US") ============ -->
+  <section class="page" data-page="17">
+    <div class="spiral"></div>
+    <div class="page-inner center-content pink-page">
+      <div class="heart-badge">❤️ OUR STORY</div>
+      <h2 class="page-title">Us 💙</h2>
+      <p class="romantic-lead">How best friends became everything...</p>
+      <div class="romantic-divider">✦ 💙 ✦</div>
+      <p class="romantic-quote">"I didn't just fall in love with you... I fell in love with your laugh, your voice, your kindness, and how you make every ordinary day feel magic."</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 18 (19/25) : OUR TIMELINE & POLAROIDS ============ -->
+  <section class="page" data-page="18">
+    <div class="spiral"></div>
+    <div class="page-inner pink-page">
+      <h2 class="page-title">Our Precious Moments ⏳</h2>
+      <p class="page-sub">From friends to soulmates</p>
+
+      <div class="polaroid-row">
+        <div class="polaroid">
+          <img src="assets/photos/photo1.jpg" alt="Mandrita Photo 1" class="polaroid-img" />
+          <p class="polaroid-caption">My Favorite Smile 💙</p>
+        </div>
+        <div class="polaroid">
+          <img src="assets/photos/photo2.jpg" alt="Mandrita Photo 2" class="polaroid-img" />
+          <p class="polaroid-caption">Forever My Girl ✨</p>
+        </div>
+      </div>
+
+      <div class="timeline-v">
+        <div class="t-node">
+          <span class="t-date">June 1, 2026</span>
+          <p>The "Radhika" first text 📱</p>
+        </div>
+        <div class="t-node">
+          <span class="t-date">Late Night Calls</span>
+          <p>Talking for hours until 4:00 AM</p>
+        </div>
+        <div class="t-node highlight">
+          <span class="t-date">The Confession</span>
+          <p>Our First "I Love You" ❤️</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 19 (20/25) : GAME 6 - STARLIGHT CONSTELLATION ============ -->
+  <section class="page" data-page="19">
+    <div class="spiral"></div>
+    <div class="page-inner center-content night-page">
+      <h2 class="page-title white-text">🌌 Starlight Constellation</h2>
+      <p class="page-sub white-text">Drag across stars to connect the glowing heart constellation!</p>
+
+      <div class="game-container">
+        <canvas id="starlightCanvas" width="340" height="280"></canvas>
+      </div>
+
+      <button class="btn-primary hidden" id="starlightNextBtn">Continue ✨</button>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 20 (21/25) : THE 11:11 WISHES PAGE ============ -->
+  <section class="page" data-page="20">
+    <div class="spiral"></div>
+    <div class="page-inner center-content night-page">
+      <div class="clock-display" id="clock1111">11:11</div>
+      <h2 class="page-title white-text">Make an 11:11 Wish! ✨</h2>
+      <p class="page-sub white-text">Tap the clock to send your birthday wish to the stars!</p>
+
+      <div class="wish-reveal hidden" id="wishReveal">
+        <p class="wish-text">"My 11:11 wish came true the day you became mine." ❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 21 (22/25) : MEHENDI & HANDWRITTEN PROMISES ============ -->
+  <section class="page" data-page="21">
+    <div class="spiral"></div>
+    <div class="page-inner pink-page">
+      <h2 class="page-title">Mehendi & Promises ✍️</h2>
+      <p class="page-sub">My handwritten promises to you, Mana</p>
+
+      <div class="promise-cards">
+        <div class="promise-card">
+          <span>🌿</span>
+          <p>I promise to draw mehendi patterns on your hand whenever you ask.</p>
+        </div>
+        <div class="promise-card">
+          <span>💌</span>
+          <p>I promise to write you handwritten letters on every birthday.</p>
+        </div>
+        <div class="promise-card">
+          <span>🍨</span>
+          <p>I promise to share my ice cream and listen to all your stories forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 22 (23/25) : EMOTIONAL SECRET MESSAGE ============ -->
+  <section class="page" data-page="22">
+    <div class="spiral"></div>
+    <div class="tape tape-2"></div>
+    <div class="page-inner center-content pink-page">
+      <h2 class="page-title">A Letter From My Heart</h2>
       <p class="typewriter" id="typewriterText"></p>
     </div>
   </section>
 
-  <!-- ============ PAGE 12 : FINALE ============ -->
-  <section class="page" data-page="12">
+  <!-- ============ PAGE 23 (24/25) : GAME 7 - UNWRAP GIFT ============ -->
+  <section class="page" data-page="23">
     <div class="spiral"></div>
-    <div class="page-inner center-content">
-      <h2 class="big-title">Happy Birthday<br/><span class="heart-name">Bubli</span> 💙</h2>
-      <button class="btn-primary surprise-btn" id="surpriseBtn">Tap for a surprise 🎁</button>
-      <div class="surprise-box hidden" id="surpriseBox">
-        <p>Made with every bit of ❤️ by</p>
-        <p class="signature">Kaushik</p>
+    <div class="page-inner center-content pink-page">
+      <h2 class="page-title">🎁 Unwrap Your 18th Surprise!</h2>
+      <p class="page-sub">Drag the ribbon string to open your birthday box!</p>
+
+      <div class="game-container">
+        <canvas id="giftCanvas" width="340" height="280"></canvas>
       </div>
+
+      <button class="btn-primary hidden" id="giftNextBtn">Open Grand Finale →</button>
     </div>
   </section>
 
-  <!-- nav corners -->
-  <div class="nav-corner nav-prev" id="navPrev">‹</div>
-  <div class="nav-corner nav-next" id="navNext">›</div>
+  <!-- ============ PAGE 24 (25/25) : GRAND FINALE ============ -->
+  <section class="page" data-page="24">
+    <div class="spiral"></div>
+    <div class="page-inner center-content pink-page">
+      <div class="finale-badge">HAPPY 18th BIRTHDAY</div>
+      <h2 class="big-title">Mandrita Kujur<br/><span class="heart-name">(Bubli)</span> 💙❤️</h2>
+      
+      <p class="nostalgia-final">"You're all grown up now — but to me, you'll always be my favorite person to love."</p>
+
+      <div class="signature-box">
+        <p>Forever & Always Yours,</p>
+        <h3 class="signature">Kaushik Konai</h3>
+        <p class="sig-date">August 12, 2026 🎂</p>
+      </div>
+
+      <button class="btn-primary replay-btn" id="replayBtn">🔄 Replay Our Story</button>
+    </div>
+  </section>
+
+  <!-- Navigation Arrows -->
+  <div class="nav-corner nav-prev" id="navPrev" aria-label="Previous Page">‹</div>
+  <div class="nav-corner nav-next" id="navNext" aria-label="Next Page">›</div>
+
 </div>
 
-<!-- SVG doodle defs -->
+<!-- SVG Doodle Definitions -->
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <g id="doodle-cat">
@@ -268,22 +540,6 @@
       <path d="M60 90 Q52 98 46 92" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       <path d="M60 90 Q68 98 74 92" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       <ellipse cx="60" cy="98" rx="10" ry="5" fill="#f7a8c0" opacity=".7"/>
-    </g>
-    <g id="doodle-heart">
-      <path d="M50 88 C10 60 20 20 50 35 C80 20 90 60 50 88 Z" fill="#f4a7c0"/>
-    </g>
-    <g id="doodle-balloon">
-      <ellipse cx="50" cy="45" rx="35" ry="42" fill="#8fc6e8"/>
-      <path d="M50 87 L44 100 L56 100 Z" fill="#8fc6e8"/>
-      <line x1="50" y1="100" x2="50" y2="140" stroke="#c9a97a" stroke-width="2"/>
-      <ellipse cx="38" cy="30" rx="8" ry="12" fill="#fff" opacity=".4"/>
-    </g>
-    <g id="doodle-paw">
-      <ellipse cx="50" cy="65" rx="22" ry="18" fill="#f4a7c0"/>
-      <circle cx="28" cy="35" r="10" fill="#f4a7c0"/>
-      <circle cx="50" cy="25" r="10" fill="#f4a7c0"/>
-      <circle cx="72" cy="35" r="10" fill="#f4a7c0"/>
-      <circle cx="80" cy="55" r="8" fill="#f4a7c0"/>
     </g>
   </defs>
 </svg>

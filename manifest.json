@@ -1,0 +1,22 @@
+{
+  "name": "Bubli's Birthday Diary",
+  "short_name": "Bubli's Diary",
+  "description": "A little handmade birthday diary for Bubli 💙",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#dcecf5",
+  "theme_color": "#8fc6e8",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Bubli's Birthday Diary 💙</title>
+<meta name="theme-color" content="#8fc6e8" />
+<link rel="manifest" href="manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ambient floating doodles -->
+<div class="ambient" id="ambient"></div>
+
+<div class="book" id="book">
+
+  <!-- progress -->
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="page-counter" id="pageCounter">1 / 13</div>
+
+  <!-- ============ PAGE 0 : COVER ============ -->
+  <section class="page cover-page active" data-page="0">
+    <div class="spiral"></div>
+    <div class="tape tape-1"></div>
+    <div class="cover-content">
+      <svg class="doodle cat-doodle float-slow" viewBox="0 0 120 120" width="90"><use href="#doodle-cat"/></svg>
+      <h1 class="cover-title">Bubli's<br/>Birthday Diary</h1>
+      <p class="cover-sub">a little book made just for you 💙</p>
+      <svg class="doodle dog-doodle float-slow2" viewBox="0 0 120 120" width="80"><use href="#doodle-dog"/></svg>
+      <button class="btn-primary open-btn" id="openBtn">Open me ✨</button>
+      <p class="cover-hint">(tap the corner to flip pages)</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 1 : HERO ============ -->
+  <section class="page" data-page="1">
+    <div class="spiral"></div>
+    <div class="tape tape-2"></div>
+    <div class="page-inner center-content">
+      <p class="handwritten-line fade-in-1">For the girl who became my favorite person,</p>
+      <h1 class="big-title fade-in-2">Happy 18th<br/>Birthday <span class="heart-name">Bubli</span> 🎂</h1>
+      <p class="handwritten-line fade-in-3">flip through this little diary I made for you... 💙</p>
+      <svg class="doodle balloon-doodle float-slow" viewBox="0 0 100 140" width="70" style="left:8%;top:60%"><use href="#doodle-balloon"/></svg>
+      <svg class="doodle heart-doodle float-slow2" viewBox="0 0 100 100" width="50" style="right:10%;top:22%"><use href="#doodle-heart"/></svg>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 2 : GAME - BLOW CANDLES ============ -->
+  <section class="page" data-page="2">
+    <div class="spiral"></div>
+    <div class="page-inner">
+      <h2 class="page-title">🎂 Make a wish, Bubli!</h2>
+      <p class="page-sub">tap each candle to blow it out</p>
+      <div class="cake-wrap">
+        <svg viewBox="0 0 300 220" class="cake-svg">
+          <ellipse cx="150" cy="205" rx="120" ry="14" fill="#f2c9a0"/>
+          <rect x="45" y="140" width="210" height="65" rx="18" fill="#f7d9b8"/>
+          <rect x="45" y="140" width="210" height="18" rx="9" fill="#fff3e2"/>
+          <rect x="60" y="95" width="180" height="55" rx="16" fill="#f4a7c0"/>
+          <rect x="60" y="95" width="180" height="16" rx="8" fill="#ffe0ec"/>
+          <g id="candlesGroup"></g>
+        </svg>
+      </div>
+      <div id="candleMsg" class="candle-msg hidden">🎉 Yayy! Your wish is on its way, Bubli!</div>
+      <button class="btn-primary next-btn hidden" id="candleNext">Continue →</button>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 3 : I REMEMBERED ============ -->
+  <section class="page" data-page="3">
+    <div class="spiral"></div>
+    <div class="tape tape-1"></div>
+    <div class="page-inner">
+      <h2 class="page-title">I remembered everything 📝</h2>
+      <div class="fact-grid">
+        <div class="fact-card"><span class="fact-emoji">💙</span>Your favourite colour is sky blue — not just "blue", you always correct me on that</div>
+        <div class="fact-card"><span class="fact-emoji">🐾</span>You love cats and dogs more than most humans, honestly</div>
+        <div class="fact-card"><span class="fact-emoji">🥟</span>Momo and pizza — your ride-or-die food combo</div>
+        <div class="fact-card"><span class="fact-emoji">🍫</span>A little chocolate fixes most bad days for you</div>
+        <div class="fact-card"><span class="fact-emoji">🎨</span>You draw the cutest cartoon doodles — you even won a competition</div>
+        <div class="fact-card"><span class="fact-emoji">✨</span>No sad songs allowed — you only manifest good energy</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 4 : CAT & DOG CORNER ============ -->
+  <section class="page" data-page="4">
+    <div class="spiral"></div>
+    <div class="page-inner center-content">
+      <h2 class="page-title">Your favourite corner 🐱🐶</h2>
+      <p class="page-sub">tap them, they missed you</p>
+      <div class="pet-row">
+        <div class="pet-wrap" id="petCat">
+          <svg class="doodle pet-svg" viewBox="0 0 120 120" width="110"><use href="#doodle-cat"/></svg>
+          <div class="pet-heart">💗</div>
+        </div>
+        <div class="pet-wrap" id="petDog">
+          <svg class="doodle pet-svg" viewBox="0 0 120 120" width="110"><use href="#doodle-dog"/></svg>
+          <div class="pet-heart">💗</div>
+        </div>
+      </div>
+
+      <!-- Rotated Photo Strip -->
+      <div class="photo-strip">
+        <div class="photo-card photo-card-1">
+          <div class="photo-tape tape-top-left"></div>
+          <img src="assets/photos/photo1.jpg" alt="Bubli Photo 1" class="diary-photo" />
+        </div>
+        <div class="photo-card photo-card-2">
+          <div class="photo-tape tape-top-right"></div>
+          <img src="assets/photos/photo2.jpg" alt="Bubli Photo 2" class="diary-photo" />
+        </div>
+      </div>
+
+      <p class="handwritten-line small-note">a whole page just for the two things you never get tired of</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 5 : GAME - BASKETBALL ============ -->
+  <section class="page" data-page="5">
+    <div class="spiral"></div>
+    <div class="page-inner">
+      <h2 class="page-title">🏀 Birthday Hoops</h2>
+      <p class="page-sub" id="hoopSub">tap anywhere to shoot · <span id="hoopScore">0</span>/3</p>
+      <div class="hoop-court" id="hoopCourt">
+        <svg class="hoop-svg" viewBox="0 0 220 140">
+          <rect x="0" y="0" width="220" height="14" rx="4" fill="#e8a855"/>
+          <rect x="0" y="14" width="10" height="40" fill="#e8a855"/>
+          <ellipse cx="60" cy="55" rx="42" ry="10" fill="none" stroke="#e8536b" stroke-width="6"/>
+          <path d="M22 58 L26 95 M40 58 L42 95 M60 58 L60 95 M80 58 L78 95 M98 58 L94 95" stroke="#f4a7c0" stroke-width="2" fill="none"/>
+        </svg>
+        <div class="ball" id="ball">🏀</div>
+      </div>
+      <button class="btn-primary next-btn hidden" id="hoopNext">Continue →</button>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 6 : MOVIE SHELF ============ -->
+  <section class="page" data-page="6">
+    <div class="spiral"></div>
+    <div class="tape tape-2"></div>
+    <div class="page-inner">
+      <h2 class="page-title">Our movie shelf 🎬</h2>
+      <p class="page-sub">romantic + thriller, obviously</p>
+      <div class="movie-shelf">
+        <div class="movie-card" style="--c:#f4a7c0"><div class="movie-icon">🎬</div>SitaRamam</div>
+        <div class="movie-card" style="--c:#8fc6e8"><div class="movie-icon">🦸</div>Avengers: Endgame</div>
+        <div class="movie-card" style="--c:#e8a855"><div class="movie-icon">💔</div>My Fault</div>
+        <div class="movie-card" style="--c:#c6a4e8"><div class="movie-icon">💛</div>Your Fault</div>
+        <div class="movie-card" style="--c:#a4e8c6"><div class="movie-icon">💚</div>Our Fault</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 7 : GAME - BALLOON POP ============ -->
+  <section class="page" data-page="7">
+    <div class="spiral"></div>
+    <div class="page-inner">
+      <h2 class="page-title">🎈 Pop them all, Bubli!</h2>
+      <div class="balloon-field" id="balloonField"></div>
+      <div class="pop-reveal" id="popReveal"></div>
+      <button class="btn-primary next-btn hidden" id="balloonNext">Continue →</button>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 8 : ADULTHOOD ============ -->
+  <section class="page" data-page="8">
+    <div class="spiral"></div>
+    <div class="page-inner">
+      <h2 class="page-title">Welcome to adulthood 🎓🌚</h2>
+      <p class="page-sub">officially 18 — here's your new unlocked list</p>
+      <div class="unlock-grid">
+        <div class="unlock-card">🗳️ Vote in elections</div>
+        <div class="unlock-card">💍 Legally marry <span class="wink">🌚</span></div>
+        <div class="unlock-card">🚗 Get a driving license</div>
+        <div class="unlock-card">📝 Sign your own contracts</div>
+        <div class="unlock-card">🏦 Open a bank account solo</div>
+        <div class="unlock-card">✈️ Get your own passport</div>
+        <div class="unlock-card">🏠 Rent a place on your name</div>
+        <div class="unlock-card">💼 Sign employment contracts</div>
+        <div class="unlock-card">⚖️ Tried as an adult (never needed, hopefully 😅)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 9 : US ============ -->
+  <section class="page" data-page="9">
+    <div class="spiral"></div>
+    <div class="page-inner center-content pink-page">
+      <h2 class="page-title">Us 💙</h2>
+      <div class="timeline">
+        <div class="timeline-item">the day I first noticed your handwriting</div>
+        <div class="timeline-item">the day you told me you love cats and dogs, and I quietly took notes</div>
+        <div class="timeline-item">the day talking to you stopped feeling ordinary</div>
+        <div class="timeline-item">the day everything changed</div>
+      </div>
+      <p class="handwritten-line small-note">still my favourite person, every single day</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 10 : NOSTALGIA ============ -->
+  <section class="page" data-page="10">
+    <div class="spiral"></div>
+    <div class="page-inner center-content dusk-page">
+      <h2 class="page-title">before you go... 🎈</h2>
+      <p class="nostalgia-line">somewhere between board exams and late night texts, your childhood quietly packed its bags</p>
+      <p class="nostalgia-line">no more permission for a 10pm bedtime</p>
+      <p class="nostalgia-line">school uniform days are numbered</p>
+      <p class="nostalgia-line">you're not "a kid" on paper anymore, Bubli</p>
+      <p class="nostalgia-final">but no matter how grown up you get — to me, you'll always be my favourite person to love 💙</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 11 : MESSAGE ============ -->
+  <section class="page" data-page="11">
+    <div class="spiral"></div>
+    <div class="tape tape-1"></div>
+    <div class="page-inner center-content">
+      <h2 class="page-title">a letter for you</h2>
+      <p class="typewriter" id="typewriterText"></p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 12 : FINALE ============ -->
+  <section class="page" data-page="12">
+    <div class="spiral"></div>
+    <div class="page-inner center-content">
+      <h2 class="big-title">Happy Birthday<br/><span class="heart-name">Bubli</span> 💙</h2>
+      <button class="btn-primary surprise-btn" id="surpriseBtn">Tap for a surprise 🎁</button>
+      <div class="surprise-box hidden" id="surpriseBox">
+        <p>Made with every bit of ❤️ by</p>
+        <p class="signature">Kaushik</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- nav corners -->
+  <div class="nav-corner nav-prev" id="navPrev">‹</div>
+  <div class="nav-corner nav-next" id="navNext">›</div>
+</div>
+
+<!-- SVG doodle defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="doodle-cat">
+      <ellipse cx="60" cy="70" rx="42" ry="38" fill="#f4c58a"/>
+      <path d="M25 45 L35 15 L50 42 Z" fill="#f4c58a"/>
+      <path d="M95 45 L85 15 L70 42 Z" fill="#f4c58a"/>
+      <path d="M30 42 L36 25 L46 40 Z" fill="#f7a8c0"/>
+      <path d="M90 42 L84 25 L74 40 Z" fill="#f7a8c0"/>
+      <circle cx="42" cy="68" r="6" fill="#3a2a20"/>
+      <circle cx="78" cy="68" r="6" fill="#3a2a20"/>
+      <ellipse cx="60" cy="82" rx="5" ry="4" fill="#e8536b"/>
+      <path d="M60 86 Q52 94 44 88" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M60 86 Q68 94 76 88" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M20 72 L2 68 M20 78 L2 80 M100 72 L118 68 M100 78 L118 80" stroke="#3a2a20" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g id="doodle-dog">
+      <ellipse cx="60" cy="72" rx="40" ry="36" fill="#e8c39a"/>
+      <ellipse cx="24" cy="55" rx="14" ry="22" fill="#c98a52" transform="rotate(-15 24 55)"/>
+      <ellipse cx="96" cy="55" rx="14" ry="22" fill="#c98a52" transform="rotate(15 96 55)"/>
+      <circle cx="44" cy="70" r="6" fill="#3a2a20"/>
+      <circle cx="76" cy="70" r="6" fill="#3a2a20"/>
+      <ellipse cx="60" cy="84" rx="8" ry="6" fill="#3a2a20"/>
+      <path d="M60 90 Q52 98 46 92" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M60 90 Q68 98 74 92" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="98" rx="10" ry="5" fill="#f7a8c0" opacity=".7"/>
+    </g>
+    <g id="doodle-heart">
+      <path d="M50 88 C10 60 20 20 50 35 C80 20 90 60 50 88 Z" fill="#f4a7c0"/>
+    </g>
+    <g id="doodle-balloon">
+      <ellipse cx="50" cy="45" rx="35" ry="42" fill="#8fc6e8"/>
+      <path d="M50 87 L44 100 L56 100 Z" fill="#8fc6e8"/>
+      <line x1="50" y1="100" x2="50" y2="140" stroke="#c9a97a" stroke-width="2"/>
+      <ellipse cx="38" cy="30" rx="8" ry="12" fill="#fff" opacity=".4"/>
+    </g>
+    <g id="doodle-paw">
+      <ellipse cx="50" cy="65" rx="22" ry="18" fill="#f4a7c0"/>
+      <circle cx="28" cy="35" r="10" fill="#f4a7c0"/>
+      <circle cx="50" cy="25" r="10" fill="#f4a7c0"/>
+      <circle cx="72" cy="35" r="10" fill="#f4a7c0"/>
+      <circle cx="80" cy="55" r="8" fill="#f4a7c0"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>

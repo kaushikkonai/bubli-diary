@@ -39,9 +39,7 @@ function updateChrome() {
   navNext.classList.toggle('disabled', current === total - 1);
   dots.forEach((d, i) => d.classList.toggle('active', i === current));
 
-  // Trigger typewriter on Page 22
   if (current === 22) startTypewriter();
-  // Init current game canvas if on game page
   initGameForPage(current);
 }
 
@@ -80,10 +78,14 @@ function goTo(index, dir) {
 navNext.addEventListener('click', () => goTo(current + 1, 'next'));
 navPrev.addEventListener('click', () => goTo(current - 1, 'prev'));
 
-// Touch Swipe Navigation
+// Touch Swipe Navigation for Pages
 let touchX = 0;
-document.getElementById('book').addEventListener('touchstart', e => touchX = e.changedTouches[0].clientX);
+document.getElementById('book').addEventListener('touchstart', e => {
+  if (e.target.tagName === 'CANVAS') return; // Ignore page swipe on game canvas
+  touchX = e.changedTouches[0].clientX;
+});
 document.getElementById('book').addEventListener('touchend', e => {
+  if (e.target.tagName === 'CANVAS') return;
   const dx = e.changedTouches[0].clientX - touchX;
   if (Math.abs(dx) < 50) return;
   if (dx < 0) goTo(current + 1, 'next'); else goTo(current - 1, 'prev');
@@ -111,14 +113,14 @@ musicToggleBtn.addEventListener('click', () => {
 });
 
 function playNote(freq, duration = 0.5, type = 'sine') {
-  if (!audioCtx || !isMusicPlaying) return;
+  if (!audioCtx) return;
   try {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = type;
     osc.frequency.value = freq;
 
-    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
 
     osc.connect(gain);
@@ -130,7 +132,7 @@ function playNote(freq, duration = 0.5, type = 'sine') {
 }
 
 function startAcousticLullaby() {
-  const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 329.63, 293.66]; // C E G C A F E D
+  const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 329.63, 293.66];
   let step = 0;
   musicInterval = setInterval(() => {
     if (!isMusicPlaying) return;
@@ -143,21 +145,19 @@ function stopAcousticLullaby() {
   if (musicInterval) clearInterval(musicInterval);
 }
 
-// Sound Synthesizers for Pets
-document.getElementById('purrBtn').addEventListener('click', () => {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  playNote(400, 0.2, 'sine');
-  setTimeout(() => playNote(600, 0.3, 'sine'), 150);
-});
-document.getElementById('barkBtn').addEventListener('click', () => {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  playNote(220, 0.15, 'sawtooth');
-  setTimeout(() => playNote(180, 0.2, 'sawtooth'), 120);
+// Aesthetic Photo Gallery Chime & Heart Sparkles (Page 5)
+document.querySelectorAll('.aesthetic-polaroid').forEach(card => {
+  card.addEventListener('click', () => {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    playNote(523.25, 0.3, 'sine');
+    setTimeout(() => playNote(659.25, 0.4, 'sine'), 100);
+    confettiBurst(15);
+  });
 });
 
 // ================= AMBIENT DOODLES =================
 const ambient = document.getElementById('ambient');
-const emojis = ['🐾', '💙', '🎈', '⭐', '🐱', '🎂', '✨', '⚽', '💍'];
+const emojis = ['🐾', '💙', '🎈', '⭐', '✨', '🎂', '🌸', '⚽', '💍'];
 for (let i = 0; i < 14; i++) {
   const s = document.createElement('span');
   s.textContent = emojis[i % emojis.length];
@@ -223,7 +223,7 @@ document.getElementById('clock1111').addEventListener('click', () => {
   document.getElementById('wishReveal').classList.remove('hidden');
 });
 
-// ================= 7 MINI-GAMES IMPLEMENTATION =================
+// ================= MINI-GAMES WITH TOUCH & SWIPE FIXES =================
 let activeGameInit = {};
 
 function initGameForPage(pageIdx) {
@@ -245,44 +245,33 @@ function initCandleGame() {
   if (!cvs) return;
   const ctx = cvs.getContext('2d');
   let flames = Array(18).fill(true);
-  let blownCount = 0;
 
   function draw() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
     // Cake base
-    ctx.fillStyle = '#fce7f3';
-    ctx.fillRect(50, 160, 240, 70);
-    ctx.fillStyle = '#f472b6';
-    ctx.fillRect(40, 210, 260, 30);
+    ctx.fillStyle = '#fce7f3'; ctx.fillRect(50, 160, 240, 70);
+    ctx.fillStyle = '#f472b6'; ctx.fillRect(40, 210, 260, 30);
 
-    // 18 Candles in 2 rows
     for (let i = 0; i < 18; i++) {
       const row = i < 9 ? 0 : 1;
       const col = i % 9;
       const x = 70 + col * 24;
       const y = row === 0 ? 120 : 145;
 
-      // Candle stick
       ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#f59e0b';
       ctx.fillRect(x, y, 8, 40);
 
-      // Flame
       if (flames[i]) {
-        ctx.fillStyle = '#ef4444';
-        ctx.beginPath();
-        ctx.arc(x + 4, y - 6, 6 + Math.random() * 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#fcd34d';
-        ctx.beginPath();
-        ctx.arc(x + 4, y - 6, 3, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillStyle = '#ef4444'; ctx.beginPath();
+        ctx.arc(x + 4, y - 6, 6 + Math.random() * 2, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fcd34d'; ctx.beginPath();
+        ctx.arc(x + 4, y - 6, 3, 0, Math.PI * 2); ctx.fill();
       }
     }
   }
 
   function blow() {
     flames = flames.map(() => false);
-    blownCount = 18;
     draw();
     confettiBurst(60);
     document.getElementById('candleStatus').textContent = 'All 18 Candles blown out! 🎉 Wish granted!';
@@ -295,48 +284,78 @@ function initCandleGame() {
   setInterval(draw, 100);
 }
 
-// GAME 2: Basketball Hoop Toss
+// GAME 2: Basketball Hoop Toss (PROMPT A: Full Touch & Swipe Support)
 function initBasketballGame() {
   const cvs = document.getElementById('basketballCanvas');
   if (!cvs) return;
   const ctx = cvs.getContext('2d');
   let score = 0;
   let ball = { x: 60, y: 220, vx: 0, vy: 0, isDragging: false, isShot: false };
+  let dragStart = { x: 60, y: 220 };
   const hoop = { x: 270, y: 100, r: 24 };
 
   function resetBall() {
     ball.x = 60; ball.y = 220; ball.vx = 0; ball.vy = 0; ball.isShot = false;
   }
 
-  cvs.addEventListener('mousedown', () => { if (!ball.isShot) ball.isDragging = true; });
-  cvs.addEventListener('mousemove', (e) => {
-    if (ball.isDragging) {
-      const rect = cvs.getBoundingClientRect();
-      ball.x = e.clientX - rect.left;
-      ball.y = e.clientY - rect.top;
+  function getPos(e) {
+    const rect = cvs.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  }
+
+  function startDrag(e) {
+    if (ball.isShot) return;
+    const pos = getPos(e);
+    if (Math.hypot(pos.x - ball.x, pos.y - ball.y) < 40) {
+      ball.isDragging = true;
+      dragStart = pos;
     }
-  });
-  cvs.addEventListener('mouseup', () => {
-    if (ball.isDragging) {
-      ball.isDragging = false;
-      ball.isShot = true;
-      ball.vx = (120 - ball.x) * 0.12;
-      ball.vy = (240 - ball.y) * 0.14;
-    }
-  });
+  }
+
+  function moveDrag(e) {
+    if (!ball.isDragging) return;
+    const pos = getPos(e);
+    ball.x = pos.x;
+    ball.y = pos.y;
+  }
+
+  function endDrag(e) {
+    if (!ball.isDragging) return;
+    ball.isDragging = false;
+    ball.isShot = true;
+    ball.vx = (120 - ball.x) * 0.14;
+    ball.vy = (240 - ball.y) * 0.15;
+  }
+
+  cvs.addEventListener('mousedown', startDrag);
+  cvs.addEventListener('mousemove', moveDrag);
+  cvs.addEventListener('mouseup', endDrag);
+
+  cvs.addEventListener('touchstart', startDrag, { passive: false });
+  cvs.addEventListener('touchmove', moveDrag, { passive: false });
+  cvs.addEventListener('touchend', endDrag);
 
   function update() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
+
     // Hoop
     ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 4;
     ctx.beginPath(); ctx.arc(hoop.x, hoop.y, hoop.r, 0, Math.PI); ctx.stroke();
 
+    // Aim Preview Trajectory Line
+    if (ball.isDragging) {
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+      ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.moveTo(ball.x, ball.y);
+      ctx.lineTo(ball.x + (120 - ball.x) * 2, ball.y + (240 - ball.y) * 2);
+      ctx.stroke(); ctx.setLineDash([]);
+    }
+
     if (ball.isShot) {
-      ball.x += ball.vx;
-      ball.y += ball.vy;
+      ball.x += ball.vx; ball.y += ball.vy;
       ball.vy += 0.4; // gravity
 
-      // Score check
       if (Math.hypot(ball.x - hoop.x, ball.y - hoop.y) < hoop.r && ball.vy > 0) {
         score++;
         document.getElementById('hoopScore').textContent = `Baskets: ${score} / 3`;
@@ -347,7 +366,7 @@ function initBasketballGame() {
         }
         resetBall();
       }
-      if (ball.y > 280 || ball.x > 340) resetBall();
+      if (ball.y > 280 || ball.x > 340 || ball.x < 0) resetBall();
     }
 
     // Ball
@@ -359,27 +378,46 @@ function initBasketballGame() {
   update();
 }
 
-// GAME 3: Balloon Pop
+// GAME 3: Balloon Pop (PROMPT C: Background Text Animation)
 function initBalloonGame() {
   const cvs = document.getElementById('balloonCanvas');
   if (!cvs) return;
   const ctx = cvs.getContext('2d');
+  const popPhrases = [
+    "18 Years of Pure Sunshine ✨",
+    "Forever My Favorite Person 💙",
+    "Happy 18th Birthday, Mana! 🎂",
+    "Bubli + Kaushik = ❤️",
+    "You are magical ✨",
+    "Officially 18 & Gorgeous! 🌸"
+  ];
   const words = ['18', 'Mana', 'Bubli', 'Khejur', 'Mimi', '🎉'];
   let balloons = words.map((word, i) => ({
     x: 50 + i * 48, y: 220 + Math.random() * 40, r: 20, word, popped: false, color: ['#38bdf8', '#f472b6', '#f59e0b', '#c084fc'][i % 4]
   }));
   let poppedCount = 0;
 
-  cvs.addEventListener('click', (e) => {
+  function handlePop(e) {
     const rect = cvs.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
+    const touch = e.touches ? e.touches[0] : e;
+    const mx = touch.clientX - rect.left;
+    const my = touch.clientY - rect.top;
 
     balloons.forEach(b => {
-      if (!b.popped && Math.hypot(mx - b.x, my - b.y) < b.r + 10) {
+      if (!b.popped && Math.hypot(mx - b.x, my - b.y) < b.r + 15) {
         b.popped = true;
         poppedCount++;
-        document.getElementById('balloonWordsFound').textContent = `Words found: ${poppedCount} / 6`;
+
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        playNote(440 + poppedCount * 50, 0.15, 'sine');
+
+        // Reveal background phrase animation
+        const msgEl = document.getElementById('balloonPopText');
+        msgEl.textContent = popPhrases[poppedCount - 1] || "Happy 18th Birthday! 🎂";
+        msgEl.classList.add('show');
+        setTimeout(() => msgEl.classList.remove('show'), 2200);
+
+        document.getElementById('balloonWordsFound').textContent = `Balloons Popped: ${poppedCount} / 6`;
         if (poppedCount >= 6) {
           confettiBurst(50);
           document.getElementById('balloonNextBtn').classList.remove('hidden');
@@ -387,7 +425,10 @@ function initBalloonGame() {
         }
       }
     });
-  });
+  }
+
+  cvs.addEventListener('click', handlePop);
+  cvs.addEventListener('touchstart', handlePop, { passive: true });
 
   function draw() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
@@ -405,7 +446,7 @@ function initBalloonGame() {
   draw();
 }
 
-// GAME 4: Ping Pong
+// GAME 4: Ping Pong Bounce (Touch Supported)
 function initPingPongGame() {
   const cvs = document.getElementById('pingpongCanvas');
   if (!cvs) return;
@@ -421,18 +462,20 @@ function initPingPongGame() {
     { x: 240, y: 75, w: 70, h: 20, alive: true }
   ];
 
-  cvs.addEventListener('mousemove', e => {
+  function movePaddle(e) {
     const rect = cvs.getBoundingClientRect();
-    paddleX = e.clientX - rect.left - 40;
-  });
+    const touch = e.touches ? e.touches[0] : e;
+    paddleX = touch.clientX - rect.left - 40;
+  }
+
+  cvs.addEventListener('mousemove', movePaddle);
+  cvs.addEventListener('touchmove', movePaddle, { passive: true });
 
   function loop() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
 
-    // Paddle
     ctx.fillStyle = '#38bdf8'; ctx.fillRect(paddleX, 250, 80, 12);
 
-    // Ball
     ball.x += ball.vx; ball.y += ball.vy;
     if (ball.x < 10 || ball.x > 330) ball.vx *= -1;
     if (ball.y < 10) ball.vy *= -1;
@@ -441,7 +484,6 @@ function initPingPongGame() {
 
     ctx.fillStyle = '#f472b6'; ctx.beginPath(); ctx.arc(ball.x, ball.y, 8, 0, Math.PI * 2); ctx.fill();
 
-    // Blocks
     let remaining = 0;
     blocks.forEach(b => {
       if (b.alive) {
@@ -464,7 +506,7 @@ function initPingPongGame() {
   loop();
 }
 
-// GAME 5: Dart Target
+// GAME 5: Dart Target (Touch Supported)
 function initDartGame() {
   const cvs = document.getElementById('dartCanvas');
   if (!cvs) return;
@@ -472,17 +514,19 @@ function initDartGame() {
   let hits = 0;
   let dart = { x: 170, y: 240, vx: 0, vy: 0, flying: false };
 
-  cvs.addEventListener('click', () => {
+  function shoot() {
     if (!dart.flying) {
       dart.flying = true;
       dart.vy = -7;
     }
-  });
+  }
+
+  cvs.addEventListener('click', shoot);
+  cvs.addEventListener('touchstart', shoot, { passive: true });
 
   function loop() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
 
-    // Target Bullseye
     ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(170, 60, 30, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(170, 60, 20, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(170, 60, 10, 0, Math.PI * 2); ctx.fill();
@@ -502,7 +546,6 @@ function initDartGame() {
       if (dart.y < 0) { dart.flying = false; dart.y = 240; }
     }
 
-    // Dart
     ctx.fillStyle = '#38bdf8'; ctx.fillRect(dart.x - 3, dart.y, 6, 20);
 
     requestAnimationFrame(loop);
@@ -510,7 +553,7 @@ function initDartGame() {
   loop();
 }
 
-// GAME 6: Starlight Constellation
+// GAME 6: Starlight Constellation (PROMPT A: Fixed Touch Connections & Particle Trail)
 function initStarlightGame() {
   const cvs = document.getElementById('starlightCanvas');
   if (!cvs) return;
@@ -520,39 +563,49 @@ function initStarlightGame() {
     { x: 130, y: 190 }, { x: 210, y: 190 }, { x: 170, y: 230 }
   ];
   let connected = [];
+  let currentTouchPos = null;
 
-  cvs.addEventListener('click', e => {
+  function handleTouch(e) {
     const rect = cvs.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
+    const touch = e.touches ? e.touches[0] : e;
+    const mx = touch.clientX - rect.left;
+    const my = touch.clientY - rect.top;
+    currentTouchPos = { x: mx, y: my };
 
     stars.forEach((s, idx) => {
-      if (Math.hypot(mx - s.x, my - s.y) < 25) {
+      if (Math.hypot(mx - s.x, my - s.y) < 30) {
         if (!connected.includes(idx)) connected.push(idx);
         if (connected.length >= stars.length) {
-          confettiBurst(40);
+          confettiBurst(50);
           document.getElementById('starlightNextBtn').classList.remove('hidden');
           document.getElementById('starlightNextBtn').onclick = () => goTo(20, 'next');
         }
       }
     });
-  });
+  }
+
+  cvs.addEventListener('mousedown', handleTouch);
+  cvs.addEventListener('mousemove', handleTouch);
+  cvs.addEventListener('touchstart', handleTouch, { passive: true });
+  cvs.addEventListener('touchmove', handleTouch, { passive: true });
 
   function loop() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
 
-    // Lines
-    if (connected.length > 1) {
-      ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 3;
+    if (connected.length > 0) {
+      ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 3.5;
       ctx.beginPath();
       connected.forEach((idx, i) => {
         const s = stars[idx];
         if (i === 0) ctx.moveTo(s.x, s.y); else ctx.lineTo(s.x, s.y);
       });
+      if (currentTouchPos && connected.length < stars.length) {
+        const lastStar = stars[connected[connected.length - 1]];
+        ctx.lineTo(currentTouchPos.x, currentTouchPos.y);
+      }
       ctx.stroke();
     }
 
-    // Stars
     stars.forEach((s, i) => {
       ctx.fillStyle = connected.includes(i) ? '#f472b6' : '#fff';
       ctx.beginPath(); ctx.arc(s.x, s.y, 8, 0, Math.PI * 2); ctx.fill();
@@ -563,33 +616,33 @@ function initStarlightGame() {
   loop();
 }
 
-// GAME 7: Unwrap Gift
+// GAME 7: Unwrap Gift (Touch Supported)
 function initGiftGame() {
   const cvs = document.getElementById('giftCanvas');
   if (!cvs) return;
   const ctx = cvs.getContext('2d');
   let unwrapped = false;
 
-  cvs.addEventListener('click', () => {
+  function openGift() {
     if (!unwrapped) {
       unwrapped = true;
       confettiBurst(70);
       document.getElementById('giftNextBtn').classList.remove('hidden');
       document.getElementById('giftNextBtn').onclick = () => goTo(24, 'next');
     }
-  });
+  }
+
+  cvs.addEventListener('click', openGift);
+  cvs.addEventListener('touchstart', openGift, { passive: true });
 
   function draw() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
 
     if (!unwrapped) {
-      // Gift Box
       ctx.fillStyle = '#f472b6'; ctx.fillRect(100, 110, 140, 120);
       ctx.fillStyle = '#fb7185'; ctx.fillRect(90, 90, 160, 30);
-      // Ribbon
       ctx.fillStyle = '#f59e0b'; ctx.fillRect(160, 90, 20, 140);
     } else {
-      // Opened Heart
       ctx.fillStyle = '#f472b6'; ctx.font = '50px Caveat';
       ctx.fillText('❤️ Happy 18th Birthday, Bubli!', 30, 150);
     }

@@ -15,7 +15,7 @@
 <!-- Ambient floating doodles -->
 <div class="ambient" id="ambient"></div>
 
-<!-- Floating Navigation Dots Sidebar (For Desktop & Tablet) -->
+<!-- Floating Navigation Dots Sidebar -->
 <nav class="dot-nav" id="dotNav" aria-label="Page Navigation"></nav>
 
 <!-- Audio Music Controls -->
@@ -37,11 +37,12 @@
     <div class="spiral"></div>
     <div class="tape tape-1"></div>
     <div class="cover-content">
-      <svg class="doodle cat-doodle float-slow" viewBox="0 0 120 120" width="90"><use href="#doodle-cat"/></svg>
+      <div class="cover-avatar-frame">
+        <img src="assets/photos/photo3.jpg" alt="Mandrita" class="cover-avatar-img" />
+      </div>
       <div class="badge-18">OFFICIALLY 18! 🎂</div>
       <h1 class="cover-title">Bubli's<br/>18th Birthday Diary</h1>
       <p class="cover-sub">a romantic interactive journey made just for you, Mana 💙</p>
-      <svg class="doodle dog-doodle float-slow2" viewBox="0 0 120 120" width="80"><use href="#doodle-dog"/></svg>
       <button class="btn-primary open-btn" id="openBtn">Open My Heart ✨</button>
       <p class="cover-hint">(swipe or tap corners to flip pages)</p>
     </div>
@@ -127,9 +128,9 @@
     <div class="spiral"></div>
     <div class="page-inner center-content">
       <h2 class="page-title">🏀 Basket Time, Mandrita!</h2>
-      <p class="page-sub">Drag the basketball back and release to shoot into the hoop!</p>
+      <p class="page-sub">Swipe or drag the ball toward the hoop to score!</p>
 
-      <div class="game-container">
+      <div class="game-container touch-game">
         <canvas id="basketballCanvas" width="340" height="280"></canvas>
       </div>
 
@@ -140,25 +141,33 @@
     </div>
   </section>
 
-  <!-- ============ PAGE 5 (6/25) : CAT & DOG PLAYGROUND ============ -->
+  <!-- ============ PAGE 5 (6/25) : AESTHETIC PHOTO GALLERY ============ -->
   <section class="page" data-page="5">
     <div class="spiral"></div>
     <div class="page-inner">
-      <h2 class="page-title">Cat & Dog Playground 🐾</h2>
-      <p class="page-sub">Dedicated to Seenu & her ultimate love for pets!</p>
+      <h2 class="page-title">Aesthetic Gallery ✨</h2>
+      <p class="page-sub">My favorite pictures of you, Mandrita 💙</p>
 
-      <div class="pet-gallery">
-        <div class="pet-card cat-card">
-          <div class="pet-avatar">🐱</div>
-          <h3>The Cat Whisperer</h3>
-          <p>Sending 50 cat reels a day and getting emotional over kittens</p>
-          <button class="sound-btn" id="purrBtn">🔊 Meow Sound</button>
+      <div class="photo-wall">
+        <div class="aesthetic-polaroid" data-photo="1">
+          <img src="assets/photos/photo1.jpg" alt="Mandrita Warm Glow" class="photo-img" />
+          <p class="photo-caption">Warm Lamp Glow 💡</p>
         </div>
-        <div class="pet-card dog-card">
-          <div class="pet-avatar">🐶</div>
-          <h3>Dog Lover & Seenu</h3>
-          <p>Giving treats to every stray dog and talking to them like humans!</p>
-          <button class="sound-btn" id="barkBtn">🔊 Bark Sound</button>
+        <div class="aesthetic-polaroid" data-photo="2">
+          <img src="assets/photos/photo2.jpg" alt="Mandrita Cute Smile" class="photo-img" />
+          <p class="photo-caption">Hello Kitty Smile 🌸</p>
+        </div>
+        <div class="aesthetic-polaroid" data-photo="3">
+          <img src="assets/photos/photo3.jpg" alt="Mandrita Sky & Hearts" class="photo-img" />
+          <p class="photo-caption">Palm Trees & Heart Skies 🌴</p>
+        </div>
+        <div class="aesthetic-polaroid" data-photo="4">
+          <img src="assets/photos/photo4.jpg" alt="Mandrita Gorgeous Portrait" class="photo-img" />
+          <p class="photo-caption">Gorgeous Eyes & Hair ✨</p>
+        </div>
+        <div class="aesthetic-polaroid" data-photo="5">
+          <img src="assets/photos/photo5.jpg" alt="Mandrita Green Saree" class="photo-img" />
+          <p class="photo-caption">Saree Queen 💚</p>
         </div>
       </div>
     </div>
@@ -221,13 +230,17 @@
     <div class="spiral"></div>
     <div class="page-inner center-content">
       <h2 class="page-title">🎈 Pop the Birthday Balloons!</h2>
-      <p class="page-sub">Tap floating balloons to reveal special words!</p>
+      <p class="page-sub">Tap floating balloons to pop them and reveal sweet notes!</p>
 
-      <div class="game-container balloon-field-container">
+      <div class="balloon-msg-container" id="balloonPopMsg">
+        <p class="balloon-pop-text" id="balloonPopText">Pop a balloon! 🎈</p>
+      </div>
+
+      <div class="game-container touch-game balloon-field-container">
         <canvas id="balloonCanvas" width="340" height="280"></canvas>
       </div>
 
-      <div class="pop-words-found" id="balloonWordsFound">Words found: 0 / 6</div>
+      <div class="pop-words-found" id="balloonWordsFound">Balloons Popped: 0 / 6</div>
       <button class="btn-primary hidden" id="balloonNextBtn">Continue →</button>
     </div>
   </section>
@@ -274,9 +287,9 @@
     <div class="spiral"></div>
     <div class="page-inner center-content">
       <h2 class="page-title">🎾 Ping Pong Bounce!</h2>
-      <p class="page-sub">Drag the paddle to bounce the ball and break target blocks!</p>
+      <p class="page-sub">Drag or swipe the paddle to bounce the ball and smash target blocks!</p>
 
-      <div class="game-container">
+      <div class="game-container touch-game">
         <canvas id="pingpongCanvas" width="340" height="280"></canvas>
       </div>
 
@@ -338,9 +351,9 @@
     <div class="spiral"></div>
     <div class="page-inner center-content">
       <h2 class="page-title">🎯 Bullseye for the Birthday Girl!</h2>
-      <p class="page-sub">Pull back the dart and release to hit the target!</p>
+      <p class="page-sub">Tap or swipe to launch the dart at the target!</p>
 
-      <div class="game-container">
+      <div class="game-container touch-game">
         <canvas id="dartCanvas" width="340" height="280"></canvas>
       </div>
 
@@ -385,12 +398,12 @@
 
       <div class="polaroid-row">
         <div class="polaroid">
-          <img src="assets/photos/photo1.jpg" alt="Mandrita Photo 1" class="polaroid-img" />
-          <p class="polaroid-caption">My Favorite Smile 💙</p>
+          <img src="assets/photos/photo4.jpg" alt="Mandrita Photo 4" class="polaroid-img" />
+          <p class="polaroid-caption">Gorgeous Eyes ✨</p>
         </div>
         <div class="polaroid">
-          <img src="assets/photos/photo2.jpg" alt="Mandrita Photo 2" class="polaroid-img" />
-          <p class="polaroid-caption">Forever My Girl ✨</p>
+          <img src="assets/photos/photo5.jpg" alt="Mandrita Photo 5" class="polaroid-img" />
+          <p class="polaroid-caption">Saree Elegance 💚</p>
         </div>
       </div>
 
@@ -416,9 +429,9 @@
     <div class="spiral"></div>
     <div class="page-inner center-content night-page">
       <h2 class="page-title white-text">🌌 Starlight Constellation</h2>
-      <p class="page-sub white-text">Drag across stars to connect the glowing heart constellation!</p>
+      <p class="page-sub white-text">Drag or touch across stars to connect the glowing heart constellation!</p>
 
-      <div class="game-container">
+      <div class="game-container touch-game">
         <canvas id="starlightCanvas" width="340" height="280"></canvas>
       </div>
 
@@ -469,6 +482,9 @@
     <div class="spiral"></div>
     <div class="tape tape-2"></div>
     <div class="page-inner center-content pink-page">
+      <div class="letter-polaroid">
+        <img src="assets/photos/photo1.jpg" alt="Mandrita Photo 1" class="letter-photo-img" />
+      </div>
       <h2 class="page-title">A Letter From My Heart</h2>
       <p class="typewriter" id="typewriterText"></p>
     </div>
@@ -479,9 +495,9 @@
     <div class="spiral"></div>
     <div class="page-inner center-content pink-page">
       <h2 class="page-title">🎁 Unwrap Your 18th Surprise!</h2>
-      <p class="page-sub">Drag the ribbon string to open your birthday box!</p>
+      <p class="page-sub">Tap or drag the ribbon string to open your birthday box!</p>
 
-      <div class="game-container">
+      <div class="game-container touch-game">
         <canvas id="giftCanvas" width="340" height="280"></canvas>
       </div>
 
@@ -493,6 +509,9 @@
   <section class="page" data-page="24">
     <div class="spiral"></div>
     <div class="page-inner center-content pink-page">
+      <div class="finale-portrait-frame">
+        <img src="assets/photos/photo5.jpg" alt="Mandrita Finale" class="finale-portrait-img" />
+      </div>
       <div class="finale-badge">HAPPY 18th BIRTHDAY</div>
       <h2 class="big-title">Mandrita Kujur<br/><span class="heart-name">(Bubli)</span> 💙❤️</h2>
       
@@ -529,17 +548,6 @@
       <path d="M60 86 Q52 94 44 88" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       <path d="M60 86 Q68 94 76 88" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
       <path d="M20 72 L2 68 M20 78 L2 80 M100 72 L118 68 M100 78 L118 80" stroke="#3a2a20" stroke-width="2" stroke-linecap="round"/>
-    </g>
-    <g id="doodle-dog">
-      <ellipse cx="60" cy="72" rx="40" ry="36" fill="#e8c39a"/>
-      <ellipse cx="24" cy="55" rx="14" ry="22" fill="#c98a52" transform="rotate(-15 24 55)"/>
-      <ellipse cx="96" cy="55" rx="14" ry="22" fill="#c98a52" transform="rotate(15 96 55)"/>
-      <circle cx="44" cy="70" r="6" fill="#3a2a20"/>
-      <circle cx="76" cy="70" r="6" fill="#3a2a20"/>
-      <ellipse cx="60" cy="84" rx="8" ry="6" fill="#3a2a20"/>
-      <path d="M60 90 Q52 98 46 92" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M60 90 Q68 98 74 92" stroke="#3a2a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <ellipse cx="60" cy="98" rx="10" ry="5" fill="#f7a8c0" opacity=".7"/>
     </g>
   </defs>
 </svg>

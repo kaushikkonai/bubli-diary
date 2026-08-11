@@ -164,6 +164,22 @@ html, body {
   border: 1px solid var(--paper-line);
 }
 
+/* Cover Avatar Frame */
+.cover-avatar-frame {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.35);
+  margin-bottom: 6px;
+}
+.cover-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ===== PAGE LEAF ===== */
 .page {
   position: absolute;
@@ -213,7 +229,7 @@ html, body {
   text-align: center;
   min-height: calc(100vh - 60px);
   min-height: calc(100dvh - 60px);
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Spiral & Tape */
@@ -243,10 +259,10 @@ html, body {
 
 /* Typography */
 .cover-title, .big-title, .page-title { font-family: 'Caveat', cursive; color: var(--ink); }
-.cover-title { font-size: 42px; text-align: center; line-height: 1.15; margin: 10px 0 4px; }
-.big-title { font-size: 40px; text-align: center; line-height: 1.2; margin: 6px 0; }
-.page-title { font-size: 32px; margin: 4px 0 2px; text-align: left; }
-.page-sub { font-family: 'Patrick Hand', cursive; color: #7a6a55; font-size: 16px; margin: 0 0 12px; }
+.cover-title { font-size: 40px; text-align: center; line-height: 1.15; margin: 8px 0 4px; }
+.big-title { font-size: 38px; text-align: center; line-height: 1.2; margin: 6px 0; }
+.page-title { font-size: 30px; margin: 4px 0 2px; text-align: left; }
+.page-sub { font-family: 'Patrick Hand', cursive; color: #7a6a55; font-size: 15px; margin: 0 0 10px; }
 .white-text { color: #f8fafc !important; }
 
 .badge-18 {
@@ -254,8 +270,8 @@ html, body {
   color: #fff;
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 13px;
-  padding: 4px 14px;
+  font-size: 12px;
+  padding: 3px 12px;
   border-radius: 20px;
   letter-spacing: 1px;
   box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
@@ -267,9 +283,9 @@ html, body {
   color: #fff;
   border: none;
   font-family: 'Patrick Hand', cursive;
-  font-size: 20px;
-  padding: 12px 28px;
-  border-radius: 26px;
+  font-size: 19px;
+  padding: 10px 24px;
+  border-radius: 24px;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(56,189,248,.35);
   transition: all .2s ease;
@@ -281,8 +297,8 @@ html, body {
   color: var(--ink);
   border: 1.5px solid var(--paper-line);
   font-family: 'Patrick Hand', cursive;
-  font-size: 18px;
-  padding: 8px 20px;
+  font-size: 17px;
+  padding: 8px 18px;
   border-radius: 20px;
   cursor: pointer;
   transition: all .2s ease;
@@ -314,10 +330,10 @@ html, body {
 .nav-next { right: 16px; }
 .nav-corner.disabled { opacity: 0.3; pointer-events: none; }
 
-/* ===== CANVAS GAME CONTAINERS ===== */
+/* ===== CANVAS GAME CONTAINERS (PROMPT A TOUCH FIX) ===== */
 .game-container {
   width: 340px;
-  height: 280px;
+  height: 270px;
   max-width: 100%;
   background: #fff;
   border-radius: 16px;
@@ -325,18 +341,20 @@ html, body {
   box-shadow: inset 0 2px 8px rgba(0,0,0,0.04), 0 6px 18px rgba(0,0,0,0.06);
   position: relative;
   overflow: hidden;
-  margin: 6px 0;
+  margin: 4px 0;
+  touch-action: none; /* Prevents mobile browser scroll during game gestures */
 }
-.game-container canvas {
+.game-container.touch-game canvas {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: none;
 }
 
 .game-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 .score-badge {
   background: var(--paper);
@@ -344,8 +362,71 @@ html, body {
   padding: 6px 14px;
   border-radius: 16px;
   font-family: 'Patrick Hand', cursive;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--ink);
+}
+
+/* ===== PAGE 6: AESTHETIC PHOTO WALL ===== */
+.photo-wall {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 10px 0;
+}
+.aesthetic-polaroid {
+  background: #fff;
+  padding: 8px 8px 14px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  border: 1px solid var(--paper-line);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+.aesthetic-polaroid:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  box-shadow: 0 10px 24px rgba(244, 114, 182, 0.25);
+  z-index: 10;
+}
+.aesthetic-polaroid:nth-child(1) { transform: rotate(-3deg); }
+.aesthetic-polaroid:nth-child(2) { transform: rotate(2deg); }
+.aesthetic-polaroid:nth-child(3) { transform: rotate(-2deg); }
+.aesthetic-polaroid:nth-child(4) { transform: rotate(3deg); }
+.aesthetic-polaroid:nth-child(5) { grid-column: span 2; max-width: 200px; margin: 0 auto; transform: rotate(-1deg); }
+
+.photo-img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.photo-caption {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  text-align: center;
+  margin: 4px 0 0;
+  color: var(--ink);
+}
+
+/* ===== PAGE 9: BALLOON POP BACKGROUND MESSAGE ===== */
+.balloon-msg-container {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.balloon-pop-text {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  font-weight: 700;
+  color: #be185d;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+.balloon-pop-text.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ===== CARDS & CHAT ===== */
@@ -355,238 +436,93 @@ html, body {
   gap: 10px;
   background: rgba(255,255,255,0.7);
   backdrop-filter: blur(4px);
-  padding: 16px;
+  padding: 14px;
   border-radius: 18px;
   border: 1.5px solid var(--paper-line);
-  margin: 12px 0;
+  margin: 10px 0;
 }
 .chat-bubble {
   max-width: 85%;
   padding: 10px 14px;
   border-radius: 14px;
   font-family: 'Patrick Hand', cursive;
-  font-size: 17px;
-  position: relative;
+  font-size: 16px;
 }
-.chat-bubble.received {
-  align-self: flex-start;
-  background: #e0f2fe;
-  color: #0369a1;
-  border-bottom-left-radius: 2px;
-}
-.chat-bubble.sent {
-  align-self: flex-end;
-  background: #fce7f3;
-  color: #be185d;
-  border-bottom-right-radius: 2px;
-}
-.chat-sender {
-  font-size: 11px;
-  display: block;
-  opacity: 0.7;
-  margin-bottom: 2px;
-}
+.chat-bubble.received { align-self: flex-start; background: #e0f2fe; color: #0369a1; }
+.chat-bubble.sent { align-self: flex-end; background: #fce7f3; color: #be185d; }
+.chat-sender { font-size: 11px; opacity: 0.7; display: block; margin-bottom: 2px; }
 
-/* Sticker & Unlock Grid */
 .sticker-grid, .unlock-grid, .routine-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 8px;
+  margin: 8px 0;
 }
 .sticker-card, .unlock-card, .routine-card, .promise-card {
   background: #fff;
-  border-radius: 14px;
-  padding: 12px 16px;
+  border-radius: 12px;
+  padding: 10px 14px;
   border: 1.5px solid var(--paper-line);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-.sticker-card h4 { margin: 0 0 4px; font-size: 18px; color: var(--ink); }
-.sticker-card p { margin: 0; font-size: 15px; color: #64748b; }
+.sticker-card h4 { margin: 0 0 2px; font-size: 17px; color: var(--ink); }
+.sticker-card p { margin: 0; font-size: 14px; color: #64748b; }
 
-.unlock-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 18px;
-  color: var(--ink);
-}
-.unlock-card .chk {
-  width: 24px;
-  height: 24px;
-  background: #dcfce7;
-  color: #16a34a;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
+.unlock-card { display: flex; align-items: center; gap: 10px; font-family: 'Patrick Hand', cursive; font-size: 17px; color: var(--ink); }
+.unlock-card .chk { width: 22px; height: 22px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
 /* Movie Flip Cards */
-.movie-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px 0;
-}
-.movie-flip-card {
-  background: #fff;
-  border: 1.5px solid var(--paper-line);
-  border-radius: 14px;
-  padding: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 18px;
-}
-.movie-flip-card:hover { transform: scale(1.02); border-color: var(--sky-deep); }
+.movie-grid { display: flex; flex-direction: column; gap: 8px; margin: 8px 0; }
+.movie-flip-card { background: #fff; border: 1.5px solid var(--paper-line); border-radius: 12px; padding: 12px; cursor: pointer; font-family: 'Patrick Hand', cursive; font-size: 17px; }
 .movie-front { font-weight: bold; color: var(--ink); }
-.movie-back { display: none; font-size: 15px; color: #475569; margin-top: 6px; }
+.movie-back { display: none; font-size: 14px; color: #475569; margin-top: 4px; }
 .movie-flip-card.flipped .movie-back { display: block; }
 
 /* Stadium & Flex Cards */
 .stadium-card, .flex-card, .winky-box {
   background: linear-gradient(135deg, #ffffff, #f1f5f9);
-  border-radius: 20px;
-  padding: 20px;
-  border: 2px stroke var(--paper-line);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border-radius: 18px;
+  padding: 16px;
+  border: 1.5px solid var(--paper-line);
   text-align: center;
-  margin: 12px 0;
+  margin: 10px 0;
 }
-.cr7-badge {
-  display: inline-block;
-  background: #ef4444;
-  color: #fff;
-  font-weight: bold;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 13px;
-}
-.match-score {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 14px;
-  font-weight: bold;
-  font-size: 18px;
-  color: #1e293b;
-}
+.cr7-badge { display: inline-block; background: #ef4444; color: #fff; font-weight: bold; padding: 3px 10px; border-radius: 10px; font-size: 12px; }
+.match-score { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; font-weight: bold; font-size: 17px; color: #1e293b; }
 
 /* POLAROID FRAMES */
-.polaroid-row {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  margin: 14px 0;
-}
-.polaroid {
-  background: #fff;
-  padding: 10px 10px 18px;
-  border-radius: 4px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  transform: rotate(-3deg);
-  width: 150px;
-  transition: transform 0.3s ease;
-}
-.polaroid:nth-child(2) { transform: rotate(4deg); }
-.polaroid:hover { transform: scale(1.08) rotate(0deg); z-index: 10; }
-.polaroid-img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 2px;
-}
-.polaroid-caption {
-  font-family: 'Caveat', cursive;
-  font-size: 18px;
-  text-align: center;
-  margin: 6px 0 0;
-  color: var(--ink);
-}
+.polaroid-row { display: flex; gap: 12px; justify-content: center; margin: 10px 0; }
+.polaroid { background: #fff; padding: 8px 8px 14px; border-radius: 4px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); transform: rotate(-3deg); width: 145px; }
+.polaroid:nth-child(2) { transform: rotate(3deg); }
+.polaroid-img { width: 100%; height: 130px; object-fit: cover; border-radius: 2px; }
+.polaroid-caption { font-family: 'Caveat', cursive; font-size: 17px; text-align: center; margin: 4px 0 0; color: var(--ink); }
+
+/* Letter & Finale Photo Frames */
+.letter-polaroid { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3); margin-bottom: 8px; }
+.letter-photo-img { width: 100%; height: 100%; object-fit: cover; }
+
+.finale-portrait-frame { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; border: 3px solid var(--blush); box-shadow: 0 6px 18px rgba(244, 114, 182, 0.4); margin-bottom: 8px; }
+.finale-portrait-img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Romantic Shift Pages */
-.pink-page {
-  background:
-    repeating-linear-gradient(#fdf2f8 0px, #fdf2f8 34px, #f472b633 35px),
-    #fdf2f8 !important;
-}
+.pink-page { background: repeating-linear-gradient(#fdf2f8 0px, #fdf2f8 34px, #f472b633 35px), #fdf2f8 !important; }
 .pink-page .page-title { color: #9d174d; }
-
-.dusk-page {
-  background: linear-gradient(180deg, #1e1b4b, #312e81) !important;
-}
+.dusk-page { background: linear-gradient(180deg, #1e1b4b, #312e81) !important; }
 .dusk-page .page-title, .dusk-page .nostalgia-line, .dusk-page .nostalgia-final { color: #e0e7ff; }
+.night-page { background: linear-gradient(180deg, #0f172a, #1e293b) !important; }
 
-.night-page {
-  background: linear-gradient(180deg, #0f172a, #1e293b) !important;
-}
+.heart-badge { background: #f472b6; color: #fff; font-size: 12px; font-weight: bold; padding: 3px 10px; border-radius: 10px; letter-spacing: 1px; }
+.romantic-lead { font-family: 'Patrick Hand', cursive; font-size: 19px; color: #be185d; }
+.romantic-quote { font-family: 'Caveat', cursive; font-size: 24px; line-height: 1.3; color: #881337; margin: 10px 0; }
 
-.heart-badge {
-  background: #f472b6;
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 4px 12px;
-  border-radius: 12px;
-  letter-spacing: 1px;
-}
-.romantic-lead { font-family: 'Patrick Hand', cursive; font-size: 20px; color: #be185d; }
-.romantic-quote { font-family: 'Caveat', cursive; font-size: 26px; line-height: 1.3; color: #881337; margin: 14px 0; }
-
-/* Timeline V */
-.timeline-v {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 14px 0;
-}
-.t-node {
-  background: rgba(255,255,255,0.8);
-  padding: 12px 16px;
-  border-radius: 14px;
-  border-left: 4px solid var(--sky-deep);
-}
+.timeline-v { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+.t-node { background: rgba(255,255,255,0.8); padding: 10px 14px; border-radius: 12px; border-left: 4px solid var(--sky-deep); }
 .t-node.highlight { border-left-color: var(--blush); background: #fff; box-shadow: 0 4px 14px rgba(244,114,182,0.2); }
-.t-date { font-weight: bold; font-size: 13px; color: #64748b; display: block; }
+.t-date { font-weight: bold; font-size: 12px; color: #64748b; display: block; }
 
-/* Clock & Typewriter */
-.clock-display {
-  font-family: 'Outfit', sans-serif;
-  font-size: 54px;
-  font-weight: 700;
-  color: #38bdf8;
-  text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-.clock-display:hover { transform: scale(1.1); }
+.clock-display { font-family: 'Outfit', sans-serif; font-size: 50px; font-weight: 700; color: #38bdf8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.6); cursor: pointer; }
+.typewriter { font-family: 'Patrick Hand', cursive; font-size: 18px; line-height: 1.5; color: var(--ink); white-space: pre-wrap; text-align: left; max-width: 90%; }
 
-.typewriter {
-  font-family: 'Patrick Hand', cursive;
-  font-size: 20px;
-  line-height: 1.5;
-  color: var(--ink);
-  white-space: pre-wrap;
-  text-align: left;
-  max-width: 90%;
-}
-
-.signature-box {
-  background: rgba(255,255,255,0.7);
-  padding: 16px 28px;
-  border-radius: 20px;
-  border: 1.5px solid var(--blush);
-  margin-top: 14px;
-}
-.signature {
-  font-family: 'Caveat', cursive;
-  font-size: 38px;
-  color: #be185d;
-  margin: 4px 0;
-}
+.signature-box { background: rgba(255,255,255,0.7); padding: 14px 24px; border-radius: 18px; border: 1.5px solid var(--blush); margin-top: 10px; }
+.signature { font-family: 'Caveat', cursive; font-size: 34px; color: #be185d; margin: 2px 0; }
 
 .hidden { display: none !important; }

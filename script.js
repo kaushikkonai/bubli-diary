@@ -643,10 +643,16 @@ function initGiftGame() {
       ctx.fillStyle = '#fb7185'; ctx.fillRect(90, 90, 160, 30);
       ctx.fillStyle = '#f59e0b'; ctx.fillRect(160, 90, 20, 140);
     } else {
-      ctx.fillStyle = '#f472b6'; ctx.font = '50px Caveat';
-      ctx.fillText('❤️ Happy 18th Birthday, Bubli!', 30, 150);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#be185d';
+      ctx.font = '32px Caveat';
+      ctx.fillText('❤️ Happy 18th Birthday ❤️', 170, 120);
+      ctx.fillStyle = '#0284c7';
+      ctx.font = '40px Caveat';
+      ctx.fillText('Bubli! 🎂✨', 170, 175);
     }
     requestAnimationFrame(draw);
   }
   draw();
 }
+
